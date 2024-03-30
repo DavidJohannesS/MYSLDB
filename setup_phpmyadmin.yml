@@ -1,0 +1,12 @@
+- name: Deploy phpMyAdmin Docker container
+  hosts: testHost
+  become: yes
+  vars_files:
+    - secrets.yaml
+  tasks:
+    - name: Pull phpMyAdmin Docker image
+      command: docker pull phpmyadmin
+
+    - name: Run phpMyAdmin Docker container
+      command: >
+        docker run --name phpmyadmin -d --link mariadb:db -p 8080:80 phpmyadmin
